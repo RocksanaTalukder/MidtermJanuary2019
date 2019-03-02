@@ -3,7 +3,7 @@ package datastructure;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map.*;
 
 public class CollectionView {
 
@@ -19,12 +19,17 @@ public static void main(String[] args) {
         map.put(5, "San Jose");
         map.put(6, "Seattle");
 
-        for(Entry<Integer, String> country:map.entrySet()){
-                System.out.println(country.getKey() + country.getValue());
+        for(Entry<Integer, String> entry: map.entrySet()) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+
+
+
+
         }
 
 
 
     }
 
-}
+
