@@ -14,34 +14,23 @@ public class FindMissingNumber {
          * Write java code to find the missing number from the array. Write static helper method to find it.
          */
         int[] array = new int[]{10, 2, 1, 4, 5, 3, 7, 8, 6};
+        System.out.println("Missing number is " + findMissingNumber(array));
+    }
 
+    static int findMissingNumber(int a[])
+    {
+        int n = a.length;
+        int i;
+        int x1 = a[0];
+        int x2 = 1;
 
+        for (i = 1; i< n; i++)
+            x1 = x1^a[i];
 
+        for ( i = 2; i <= n+1; i++)
+            x2 = x2^i;
 
-        int sum = 0;
-
-        for (int i = 0; i < array.length; i++)
-
-        {
-            if (array[i] == 0){}
-
-
-
-            else
-            {
-                sum += array[i];
-            }
-        }
-
-// the total sum of numbers between 1 and arr.length.
-        int n = (array.length + 1) * array.length / 2;
-
-        System.out.println("missing number is: " + (n - sum) );
-
-
-
-
-
+        return (x1^x2);
     }
 
 }

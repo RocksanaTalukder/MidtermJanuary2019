@@ -12,23 +12,20 @@ public class FindLowestDifference {
         int [] array1 = {30,12,5,9,2,20,33,1};
         int [] array2 = {20,7,12,30,4,5,40,35};
 
-        int m = array1.length;
-        int n = array2.length;
-
-        System.out.println(findLowestDifference(array1,array2,m,n));
+        System.out.println(findLowestDifference(array1,array2));
 
     }
 
-    static int findLowestDifference(int A[], int B[], int m, int n)
+    static int findLowestDifference(int A[], int B[])
     {
         Arrays.sort(A);
         Arrays.sort(B);
+        int m = A.length;
+        int n = B.length;
 
         int a = 0, b = 0;
 
         int result = Integer.MAX_VALUE;
-
-
 
         while (a < m && b < n)
         {
@@ -42,10 +39,9 @@ public class FindLowestDifference {
             else
                 b++;
         }
-
-        // return final sma result
         return result;
     }
+
 
 
 
