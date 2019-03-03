@@ -15,6 +15,15 @@ public class EmployeeInfo  {
 
 	}
 
+	public void assignDepartment(){
+		System.out.println("Employee belongs to:");
+	}
+
+	public int calculateSalary() {
+		return 0;
+
+	}
+
 
 
  /*This class can be implemented from Employee interface then add additional methods in EmployeeInfo class.
