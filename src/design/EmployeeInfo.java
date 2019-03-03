@@ -2,8 +2,21 @@ package design;
 
 import java.util.Scanner;
 
-public class EmployeeInfo {
-	
+public class EmployeeInfo  {
+
+	public int employeeID() {
+		int empID = 0;
+		return empID;
+	}
+
+	public String employeeName(){
+		System.out.println("employee name");
+		return "";
+
+	}
+
+
+
  /*This class can be implemented from Employee interface then add additional methods in EmployeeInfo class.
  * Also, Employee interface can be implemented into an abstract class.So create an Abstract class
  * then inherit that abstract class into EmployeeInfo class.Once you done with designing EmployeeInfo class,
