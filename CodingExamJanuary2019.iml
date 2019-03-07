@@ -63,10 +63,10 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/driver/mysql-connector-java-6.0.6-bin.jar!/" />
+          <root url="jar://$MODULE_DIR$/driver/mysql-connector-java-8.0.15.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

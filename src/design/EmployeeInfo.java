@@ -1,32 +1,53 @@
 package design;
 
+import databases.ConnectToSqlDB;
+
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.*;
+import databases.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.*;
+import java.sql.Connection;
+import java.util.Date;
+
 import java.util.Scanner;
 
-public class EmployeeInfo  {
+public class EmployeeInfo implements Employee {
+	ResultSet rs = ConnectToSqlDB.resultSet;
 
-	public int employeeID() {
-		int empID = 0;
-		return empID;
+	public Integer EmpId;
+	public String EmpName;
+	public Integer EmpSalary;
+	public String EmpDept;
+
+	public int employeeId() {
+		this.EmpId = EmpId;
+		return EmpId;
 	}
 
 	public String employeeName(){
-		System.out.println("employee name");
-		return "";
-
+		return EmpName;
 	}
 
-	public void assignDepartment(){
-		System.out.println("Employee belongs to:");
+	public String assignDepartment(){
+		return EmpDept;
 	}
 
 	public int calculateSalary() {
-		return 0;
+		return  EmpSalary;
+	}
 
+	public void benefitLayout(){
+		System.out.println("Employee's benefit from company");
 	}
 
 
 
- /*This class can be implemented from Employee interface then add additional methods in EmployeeInfo class.
+
+	/*This class can be implemented from Employee interface then add additional methods in EmployeeInfo class.
  * Also, Employee interface can be implemented into an abstract class.So create an Abstract class
  * then inherit that abstract class into EmployeeInfo class.Once you done with designing EmployeeInfo class,
  * go to FortuneEmployee class to apply all the fields and attributes.
@@ -54,12 +75,17 @@ public class EmployeeInfo  {
 	 * you must have multiple constructor.
 	 * Must implement below constructor.
 	 */
-	public EmployeeInfo(int employeeId){
-		
+	public EmployeeInfo(){
+
 	}
-    public EmployeeInfo(String name, int employeeId){
-		
+	public EmployeeInfo(int EmpId){
+		this.EmpId = EmpId;
 	}
+    public EmployeeInfo(String EmpName, int EmpId){
+		this.EmpName = EmpName;
+		this.EmpId = EmpId;
+	}
+
 	
 	/*
 	 * This methods should calculate Employee bonus based on salary and performance.
@@ -80,7 +106,7 @@ public class EmployeeInfo  {
 	 * Hints: pension will be 5% of the salary for 1 year, 10% for 2 years with the company and so on.
 	 * 
 	 */
-	public static int calculateEmployeePension(){
+	public int calculateEmployeePension(){
 		int total=0;
 		Scanner sc  = new Scanner(System.in);
 		System.out.println("Please enter start date in format (example: May,2015): ");
@@ -89,6 +115,31 @@ public class EmployeeInfo  {
 		String todaysDate = sc.nextLine();
         String convertedJoiningDate = DateConversion.convertDate(joiningDate);
         String convertedTodaysDate = DateConversion.convertDate(todaysDate);
+        try {
+			readDataBaseRowData("Select * from Employee where EmpId=" + employeeId());
+		} catch ( Exception e) {
+			e.printStackTrace();
+		}
+        int years = 0;
+        try {
+			Date joindate=new SimpleDateFormat("MM/yyyy").parse(convertedJoiningDate);
+			Date todaydate=new SimpleDateFormat("MM/yyyy").parse(convertedTodaysDate);
+			long diff = todaydate.getTime() - joindate.getTime();
+			years = (int) (diff / (24 * 60 * 60 * 1000)/365);
+		} catch (Exception e){
+        	e.printStackTrace();
+		}
+
+        if (years ==1)
+        	total = (EmpSalary * 5)/100;
+        else if (years >= 2)
+			total = (EmpSalary * 10)/100;
+
+
+
+
+
+
 
         //implement numbers of year from above two dates
 		//Calculate pension
@@ -154,6 +205,25 @@ public class EmployeeInfo  {
 			}
 			return date;
 
+		}
+	}
+
+	public void readDataBaseRowData(String sqlQuery )throws Exception{
+		try {
+			ConnectToSqlDB.connectToSqlDatabase();
+			ConnectToSqlDB.statement = ConnectToSqlDB.connect.createStatement();
+			rs = ConnectToSqlDB.statement.executeQuery(sqlQuery);
+
+			while (rs.next()) {
+				EmpId = rs.getInt("EmpId");
+				EmpName = rs.getString("EmpName");
+				EmpSalary = rs.getInt("EmpSalary");
+				EmpDept = rs.getString("EmpDept");
+			}
+		} catch (Exception e) {
+			throw e;
+		}finally{
+			//close();
 		}
 	}
 }

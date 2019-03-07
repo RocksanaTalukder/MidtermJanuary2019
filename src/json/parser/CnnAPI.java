@@ -23,13 +23,17 @@ public class CnnAPI {
         URLConnection request = url.openConnection();
         request.connect();
         JsonArray jsonArray = null;
+        JsonObject rootObj = null;
         JsonParser jp = new JsonParser();
         JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
         if (root instanceof JsonObject) {
-            JsonObject rootObj = root.getAsJsonObject();
+            rootObj = root.getAsJsonObject();
         } else if (root instanceof JsonArray) {
             jsonArray = root.getAsJsonArray();
         }
+
+        jsonArray = rootObj.getAsJsonArray("articles");
+
         for (int i = 0; i < jsonArray.size() - 1; i++) {
             try {
                 JsonObject jsonobject = jsonArray.get(i).getAsJsonObject();

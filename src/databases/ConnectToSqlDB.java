@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by mrahman on 04/02/18.
@@ -50,7 +48,7 @@ public class ConnectToSqlDB {
             statement = connect.createStatement();
             resultSet = statement.executeQuery("select * from " + tableName);
             data = getResultSetData(resultSet, columnName);
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             throw e;
         }finally{
             close();
@@ -216,4 +214,7 @@ public class ConnectToSqlDB {
             System.out.println(user.getStName() + " " + user.getStID()+ " " + user.getStDOB());
         }
     }
+
+
+
 }
